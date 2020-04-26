@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FeatureRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Feature
 {
@@ -30,6 +31,11 @@ class Feature
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $orderPosition;
 
     public function getId(): ?int
     {
@@ -69,6 +75,24 @@ class Feature
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    public function getOrderPosition(): ?int
+    {
+        return $this->orderPosition;
+    }
+
+    public function setOrderPosition(int $orderPosition): self
+    {
+        $this->orderPosition = $orderPosition;
+//        $features = $this->getProject() ? $this->getProject()->getFeatures() : [];
+//        $featuresPendingByOrder = array_filter($features, function($feature));
+//        foreach ($features as $feature) {
+//            if ($feature->getOrderPosition() <= $orderPosition) {
+//
+//            }
+//        }
         return $this;
     }
 }

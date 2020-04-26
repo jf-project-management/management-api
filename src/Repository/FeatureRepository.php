@@ -19,6 +19,16 @@ class FeatureRepository extends ServiceEntityRepository
         parent::__construct($registry, Feature::class);
     }
 
+    public function getFeaturesPendingByOrder(int $newPosition)
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.orderPosition <= :newPosition')
+            ->setParameter('newPosition', $newPosition)
+            ->orderBy('f.orderPosition', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Feature[] Returns an array of Feature objects
     //  */
