@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\ObjectManager;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FeatureRepository")
@@ -86,13 +88,6 @@ class Feature
     public function setOrderPosition(int $orderPosition): self
     {
         $this->orderPosition = $orderPosition;
-//        $features = $this->getProject() ? $this->getProject()->getFeatures() : [];
-//        $featuresPendingByOrder = array_filter($features, function($feature));
-//        foreach ($features as $feature) {
-//            if ($feature->getOrderPosition() <= $orderPosition) {
-//
-//            }
-//        }
         return $this;
     }
 }

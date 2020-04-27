@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\Feature;
+use App\Utils\Utils;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -30,13 +31,12 @@ class FeatureRepositoryTest extends KernelTestCase
         $this->assertSame($name, $project->getName());
     }
 
-    public function testGetFeaturesPendingByOrder()
+    public function testReorderElements()
     {
-        $initialPosition = 1;
-        $newPosition = 3;
-        $pending = $this->entityManager->getRepository(Feature::class)->getFeaturesPendingByOrder(3);
-        dump($pending);
-        return null;
+        $feature = $this->entityManager->getRepository(Feature::class)->findOneBy(['name' => 'Feature 2']);
+        $this->assertEquals(2, $feature->getOrderPosition());
+        Utils::reOrderItems($feature, 4, $this->entityManager);
+        $this->assertEquals(4, $feature->getOrderPosition());
     }
 
     protected function tearDown(): void
