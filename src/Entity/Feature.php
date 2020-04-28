@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use App\Utils\Utils;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Persistence\ObjectManager;
 
@@ -10,7 +11,7 @@ use Doctrine\Persistence\ObjectManager;
  * @ORM\Entity(repositoryClass="App\Repository\FeatureRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Feature
+class Feature extends OrderableEntity
 {
     /**
      * @ORM\Id()
@@ -35,9 +36,14 @@ class Feature
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="feature")
      */
-    private $orderPosition;
+    private $histories;
+
+    public function __construct()
+    {
+        $this->histories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -80,14 +86,34 @@ class Feature
         return $this;
     }
 
-    public function getOrderPosition(): ?int
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
     {
-        return $this->orderPosition;
+        return $this->histories;
     }
 
-    public function setOrderPosition(int $orderPosition): self
+    public function addHistory(History $history): self
     {
-        $this->orderPosition = $orderPosition;
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setFeature($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getFeature() === $this) {
+                $history->setFeature(null);
+            }
+        }
+
         return $this;
     }
 }

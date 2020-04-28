@@ -7,14 +7,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class Utils
 {
-    public static function reOrderItems(Feature $feature, int $newPosition, ObjectManager $manager)
+    public static function reOrderItems(ObjectManager $manager, array $array, int $fromPosition, int $newPosition)
     {
-        $project = $feature->getProject();
-        $fromPosition = $feature->getOrderPosition();
-        $features = $manager->getRepository(Feature::class)->findBy(['project' => $project], ['orderPosition' => 'ASC']);
-        $featuresOrdered = Utils::moveValueByIndex($features, $fromPosition, $newPosition);
+        $arrayOrdered = Utils::moveValueByIndex($array, $fromPosition, $newPosition);
 
-        foreach ($featuresOrdered as $key => $feature) {
+        foreach ($arrayOrdered as $key => $feature) {
             if($feature->getOrderPosition() != $key) {
                 $feature->setOrderPosition($key);
                 $manager->persist($feature);
@@ -22,7 +19,7 @@ class Utils
         }
 
         $manager->flush();
-        return $featuresOrdered;
+        return $arrayOrdered;
     }
 
     public static function moveValueByIndex( array $array, $from = null, $to = null )

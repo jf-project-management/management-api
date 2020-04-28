@@ -1,26 +1,11 @@
 <?php
 
 use App\Entity\Feature;
+use App\Tests\CommonInitializer;
 use App\Utils\Utils;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class FeatureRepositoryTest extends KernelTestCase
+class FeatureRepositoryTest extends CommonInitializer
 {
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
-
-    protected function setUp(): void
-    {
-        $kernel = self::bootKernel();
-
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-    }
-
     public function testSearchByName()
     {
         $name = "Feature 1";
@@ -34,15 +19,12 @@ class FeatureRepositoryTest extends KernelTestCase
     public function testReorderElements()
     {
         $feature = $this->entityManager->getRepository(Feature::class)->findOneBy(['name' => 'Feature 2']);
-        $this->assertEquals(2, $feature->getOrderPosition());
-        Utils::reOrderItems($feature, 4, $this->entityManager);
-        $this->assertEquals(4, $feature->getOrderPosition());
-    }
+        $project = $feature->getProject();
+        $fromPosition = (int) $feature->getOrderPosition();
+        $features = $this->entityManager->getRepository(Feature::class)->findBy(['project' => $project], ['orderPosition' => 'ASC']);
 
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        $this->entityManager->close();
-        $this->entityManager = null;
+        $this->assertEquals(2, $feature->getOrderPosition());
+        Utils::reOrderItems($this->entityManager, $features, $fromPosition, 4);
+        $this->assertEquals(4, $feature->getOrderPosition());
     }
 }
