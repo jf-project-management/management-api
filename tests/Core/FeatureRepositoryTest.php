@@ -9,11 +9,12 @@ class FeatureRepositoryTest extends CommonInitializer
     public function testSearchByName()
     {
         $name = "Feature 1";
-        $project = $this->entityManager
+        $feature = $this->entityManager
             ->getRepository(Feature::class)
             ->findOneBy(['name' => $name]);
 
-        $this->assertSame($name, $project->getName());
+        $this->assertSame($name, $feature->getName());
+        $this->assertNotEmpty($feature->getHistories());
     }
 
     public function testReorderElements()

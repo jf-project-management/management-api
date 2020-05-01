@@ -37,4 +37,16 @@ class ReOrderElementsTest extends TestCase
         $this->assertEquals(3, $newArray[4]['initial']);
         $this->assertEquals(4, $newArray[5]['initial']);
     }
+
+    public function testNullParams()
+    {
+        $newArray = Utils::moveValueByIndex($this->elements, null, 1);
+        $this->assertEquals(0, $newArray[0]['initial']);
+        $this->assertEquals(5, $newArray[1]['initial']);
+        $this->assertEquals(1, $newArray[2]['initial']);
+        $this->assertEquals(2, $newArray[3]['initial']);
+        $this->assertEquals(3, $newArray[4]['initial']);
+        $this->assertEquals(4, $newArray[5]['initial']);
+
+    }
 }

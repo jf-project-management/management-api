@@ -22,6 +22,7 @@ class ProjectTest extends TestCase
     public function testCreateProject()
     {
         $this->assertInstanceOf(Project::class, $this->project);
+        $this->assertEmpty($this->project->getId());
         $this->assertEquals('Project 1', $this->project->getName());
         $this->assertEquals('Any test', $this->project->getDescription());
     }

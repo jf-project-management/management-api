@@ -9,6 +9,9 @@ use App\Entity\Task;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ProjectFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
