@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Feature;
 use App\Entity\History;
 use App\Entity\Project;
+use App\Entity\Task;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -29,6 +30,15 @@ class ProjectFixtures extends Fixture
                 $history->setFeature($feature);
                 $history->setOrderPosition($y);
                 $manager->persist($history);
+
+                for($z = 0; $z < 6; $z++) {
+                    $task = new Task();
+                    $task->setName("Task $z");
+                    $task->setDescription('');
+                    $task->setHistory($history);
+                    $task->setOrderPosition($z);
+                    $manager->persist($task);
+                }
             }
 
             $manager->persist($feature);

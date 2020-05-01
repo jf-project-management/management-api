@@ -11,6 +11,8 @@
 
 ###> Other files ###
 /.idea
+/coverage
+.DS_Store
 ###< Other files ###
 
 ###> symfony/phpunit-bridge ###

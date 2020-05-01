@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,14 +24,14 @@ class History extends OrderableEntity
     private $feature;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="history")
      */
-    private $name;
+    private $tasks;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -48,26 +50,33 @@ class History extends OrderableEntity
         return $this;
     }
 
-    public function getName(): ?string
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
     {
-        return $this->name;
+        return $this->tasks;
     }
 
-    public function setName(string $name): self
+    public function addTask(Task $task): self
     {
-        $this->name = $name;
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setHistory($this);
+        }
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function removeTask(Task $task): self
     {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+            // set the owning side to null (unless already changed)
+            if ($task->getHistory() === $this) {
+                $task->setHistory(null);
+            }
+        }
 
         return $this;
     }
