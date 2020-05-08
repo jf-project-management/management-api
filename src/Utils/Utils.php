@@ -31,13 +31,13 @@ class Utils
 
         if ( !isset( $array[$from] ) )
         {
-            throw new Exception( "Offset $from does not exist" );
+            throw new \Exception( "Offset $from does not exist" );
         }
 
-        if ( array_keys( $array ) != range( 0, count( $array ) - 1 ) )
-        {
-            throw new Exception( "Invalid array keys" );
-        }
+//        if ( array_keys( $array ) != range( 0, count( $array ) - 1 ) )
+//        {
+//            throw new \Exception( "Invalid array keys" );
+//        }
 
         $value = $array[$from];
         unset( $array[$from] );

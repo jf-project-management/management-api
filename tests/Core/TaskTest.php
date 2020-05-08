@@ -15,4 +15,14 @@ class TaskTest extends CommonInitializer
 
         $this->assertEmpty($task->getId());
     }
+
+    public function testSearchTask()
+    {
+        $name = "Task 1";
+        $task = $this->entityManager
+            ->getRepository(Task::class)
+            ->findOneBy(['name' => $name]);
+
+        $this->assertSame($name, $task->getName());
+    }
 }
