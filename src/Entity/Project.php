@@ -30,13 +30,13 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Feature", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Epic", mappedBy="project")
      */
-    private $features;
+    private $epics;
 
     public function __construct()
     {
-        $this->features = new ArrayCollection();
+        $this->epics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,30 +69,30 @@ class Project
     }
 
     /**
-     * @return Collection|Feature[]
+     * @return Collection|Epic[]
      */
-    public function getFeatures(): Collection
+    public function getEpics(): Collection
     {
-        return $this->features;
+        return $this->epics;
     }
 
-    public function addFeature(Feature $feature): self
+    public function addEpic(Epic $epic): self
     {
-        if (!$this->features->contains($feature)) {
-            $this->features[] = $feature;
-            $feature->setProject($this);
+        if (!$this->epics->contains($epic)) {
+            $this->epics[] = $epic;
+            $epic->setProject($this);
         }
 
         return $this;
     }
 
-    public function removeFeature(Feature $feature): self
+    public function removeEpic(Epic $epic): self
     {
-        if ($this->features->contains($feature)) {
-            $this->features->removeElement($feature);
+        if ($this->epics->contains($epic)) {
+            $this->epics->removeElement($epic);
             // set the owning side to null (unless already changed)
-            if ($feature->getProject() === $this) {
-                $feature->setProject(null);
+            if ($epic->getProject() === $this) {
+                $epic->setProject(null);
             }
         }
 

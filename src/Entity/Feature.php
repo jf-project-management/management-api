@@ -21,14 +21,14 @@ class Feature extends OrderableEntity
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="features")
-     */
-    private $project;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="feature")
      */
     private $histories;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Epic", inversedBy="features")
+     */
+    private $epic;
 
     public function __construct()
     {
@@ -38,18 +38,6 @@ class Feature extends OrderableEntity
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getProject(): ?Project
-    {
-        return $this->project;
-    }
-
-    public function setProject(?Project $project): self
-    {
-        $this->project = $project;
-
-        return $this;
     }
 
     /**
@@ -79,6 +67,18 @@ class Feature extends OrderableEntity
                 $history->setFeature(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEpic(): ?Epic
+    {
+        return $this->epic;
+    }
+
+    public function setEpic(?Epic $epic): self
+    {
+        $this->epic = $epic;
 
         return $this;
     }

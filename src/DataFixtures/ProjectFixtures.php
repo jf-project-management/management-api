@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Epic;
 use App\Entity\Feature;
 use App\Entity\History;
 use App\Entity\Project;
@@ -20,31 +21,40 @@ class ProjectFixtures extends Fixture
         $project->setName('Project 1');
         $project->setDescription('');
 
-        for ($x = 0; $x < 5; $x++) {
-            $feature = new Feature();
-            $feature->setName("Feature $x");
-            $feature->setProject($project);
-            $feature->setOrderPosition($x);
-            $project->addFeature($feature);
+        for($d = 0; $d < 5; $d++) {
+            $epic = new Epic();
+            $epic->setOrderPosition($d);
+            $epic->setName("Epic $d");
+            $epic->setDescription('Any description $d');
 
-            for($y = 0; $y < 6; $y++) {
-                $history = new History();
-                $history->setName("History $y");
-                $history->setFeature($feature);
-                $history->setOrderPosition($y);
-                $manager->persist($history);
+            for ($x = 0; $x < 5; $x++) {
+                $feature = new Feature();
+                $feature->setEpic($epic);
+                $feature->setName("Feature $x");
+                $feature->setOrderPosition($x);
 
-                for($z = 0; $z < 6; $z++) {
-                    $task = new Task();
-                    $task->setName("Task $z");
-                    $task->setDescription('');
-                    $task->setHistory($history);
-                    $task->setOrderPosition($z);
-                    $manager->persist($task);
+                for($y = 0; $y < 6; $y++) {
+                    $history = new History();
+                    $history->setName("History $y");
+                    $history->setFeature($feature);
+                    $history->setOrderPosition($y);
+                    $manager->persist($history);
+
+                    for($z = 0; $z < 6; $z++) {
+                        $task = new Task();
+                        $task->setName("Task $z");
+                        $task->setDescription('');
+                        $task->setHistory($history);
+                        $task->setOrderPosition($z);
+                        $manager->persist($task);
+                    }
                 }
+
+                $manager->persist($feature);
+
             }
 
-            $manager->persist($feature);
+            $manager->persist($epic);
         }
 
         $manager->persist($project);
