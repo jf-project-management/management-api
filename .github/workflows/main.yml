@@ -14,7 +14,6 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: PHPUnit
-        uses: chindit/actions-phpunit-symfony@master
         run: ./bin/phpunit --coverage-clover=coverage.xml
       - name: Codecov
         uses: codecov/codecov-action@v1.0.7
