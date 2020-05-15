@@ -2,7 +2,7 @@
 
 namespace App\Tests\Core;
 
-use App\Entity\Feature;
+use App\Entity\Epic;
 use App\Entity\Project;
 use PHPUnit\Framework\TestCase;
 
@@ -27,33 +27,33 @@ class ProjectTest extends TestCase
         $this->assertEquals('Any test', $this->project->getDescription());
     }
 
-    public function testProjectFeatures()
+    public function testProjectEpics()
     {
-        $feature1 = $this->createFeature('Feature 1');
-        $feature2 = $this->createFeature('Feature 2');
+        $epic1 = $this->createEpic('Epic 1');
+        $epic2 = $this->createEpic('Epic 2');
 
-        $this->project->addFeature($feature1);
-        $this->project->addFeature($feature2);
+        $this->project->addEpic($epic1);
+        $this->project->addEpic($epic2);
 
-        $this->assertInstanceOf(Feature::class, $feature1);
-        $this->assertNotEmpty($this->project->getFeatures());
-        $this->assertEquals(2, count($this->project->getFeatures()));
+        $this->assertInstanceOf(Epic::class, $epic1);
+        $this->assertNotEmpty($this->project->getEpics());
+        $this->assertEquals(2, count($this->project->getEpics()));
     }
 
-    public function testRemoveFeaturesByIndex()
+    public function testRemoveEpicsByIndex()
     {
-        $feature1 = $this->createFeature('Feature');
-        $this->project->addFeature($feature1);
-        $this->project->getFeatures()->remove(0);
-        $this->assertEquals(0, count($this->project->getFeatures()));
+        $epic1 = $this->createEpic('Epic');
+        $this->project->addEpic($epic1);
+        $this->project->getEpics()->remove(0);
+        $this->assertEquals(0, count($this->project->getEpics()));
     }
 
-    public function testRemoveFeaturesByMethod()
+    public function testRemoveEpicsByMethod()
     {
-        $feature1 = $this->createFeature('Feature');
-        $this->project->addFeature($feature1);
-        $this->project->removeFeature($feature1);
-        $this->assertEquals(0, count($this->project->getFeatures()));
+        $epic1 = $this->createEpic('Epic');
+        $this->project->addEpic($epic1);
+        $this->project->removeEpic($epic1);
+        $this->assertEquals(0, count($this->project->getEpics()));
     }
 
     private function setUpProject()
@@ -66,12 +66,12 @@ class ProjectTest extends TestCase
     /**
      * @param string $name
      *
-     * @return Feature
+     * @return Epic
      */
-    private function createFeature(string $name): Feature
+    private function createEpic(string $name): Epic
     {
-        $feature1 = new Feature();
-        $feature1->setName($name);
-        return $feature1;
+        $epic1 = new Epic();
+        $epic1->setName($name);
+        return $epic1;
     }
 }

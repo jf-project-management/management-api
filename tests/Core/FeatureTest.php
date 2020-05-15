@@ -2,9 +2,9 @@
 
 namespace App\Tests\Core;
 
+use App\Entity\Epic;
 use App\Entity\Feature;
 use App\Entity\History;
-use App\Entity\Project;
 use PHPUnit\Framework\TestCase;
 
 class FeatureTest extends TestCase
@@ -41,11 +41,11 @@ class FeatureTest extends TestCase
 
     private function createFeatures()
     {
-        $project = new Project();
+        $epic = new Epic();
         for ($x = 0; $x < 5; $x++) {
             $feature = new Feature();
             $feature->setName("Feature $x");
-            $feature->setProject($project);
+            $feature->setEpic($epic);
             $feature->setOrderPosition($x);
             array_push($this->features, $feature);
         }
