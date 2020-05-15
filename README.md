@@ -1,6 +1,6 @@
 # Project management
 
-[![codecov](https://codecov.io/gh/jairoFernandez/project-management/branch/master/graph/badge.svg)](https://codecov.io/gh/jairoFernandez/project-management)
+[![codecov](https://codecov.io/gh/jf-project-management/management-api/branch/master/graph/badge.svg)](https://codecov.io/gh/jf-project-management/management-api)
 
 Free option for planning projects
 
