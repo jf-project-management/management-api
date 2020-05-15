@@ -29,7 +29,18 @@ class EpicTest extends CommonInitializer
     public function testSimpleQuering()
     {
         $epic = $this->entityManager->getRepository(Epic::class)->findOneBy(['name' => 'Epic 1']);
-
         $this->assertNotEmpty($epic);
+    }
+
+    public function testUpdateNameOfEpic()
+    {
+        $epic = $this->entityManager->getRepository(Epic::class)->findOneBy(['name' => 'Epic 1']);
+        $epic->setName('Epic 1 with new name');
+        $this->entityManager->persist($epic);
+        $this->entityManager->flush();
+
+        $epicUpdated = $this->entityManager->getRepository(Epic::class)->findOneBy(['name' => 'Epic 1 with new name']);
+
+        $this->assertNotEmpty($epicUpdated);
     }
 }
