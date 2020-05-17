@@ -22,13 +22,11 @@ class HashPasswordListener implements EventSubscriber
     {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
-            return;
+            return null;
         }
 
         $this->encodePassword($entity);
-//        $em = $args->getEntityManager();
-//        $meta = $em->getClassMetadata(get_class($entity));
-        // $em->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
+        return [];
     }
 
     public function preUpdate(LifecycleEventArgs $args)
