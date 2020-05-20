@@ -38,6 +38,7 @@ class HashPasswordListenerTest extends CommonInitializer
 
         $args = new LifecycleEventArgs(new User(), $this->entityManager);
         $result = self::$hashPasswordListener->prePersist($args);
+
         $this->assertEquals($result, []);
     }
 }

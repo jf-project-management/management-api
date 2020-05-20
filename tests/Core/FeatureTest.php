@@ -5,20 +5,16 @@ namespace App\Tests\Core;
 use App\Entity\Epic;
 use App\Entity\Feature;
 use App\Entity\History;
-use PHPUnit\Framework\TestCase;
+use App\Tests\CommonInitializer;
 
-class FeatureTest extends TestCase
+class FeatureTest extends CommonInitializer
 {
     private $features = [];
-
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->createFeatures();
-    }
+    private $epic;
 
     public function testOrderFeature()
     {
+        $this->createFeatures();
         $first = $this->features[0];
         $second = $this->features[1];
         $this->assertEmpty($first->getId());
@@ -30,6 +26,7 @@ class FeatureTest extends TestCase
 
     public function testAddRemoveHistory()
     {
+        $this->createFeatures();
         $second = $this->features[1];
         $history = new History();
         $second->addHistory($history);
@@ -42,6 +39,10 @@ class FeatureTest extends TestCase
     private function createFeatures()
     {
         $epic = new Epic();
+        $epic->setName('Epic test');
+        $epic->setOrderPosition(1);
+
+        $this->epic = $epic;
         for ($x = 0; $x < 5; $x++) {
             $feature = new Feature();
             $feature->setName("Feature $x");
