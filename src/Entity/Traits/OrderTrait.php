@@ -4,7 +4,7 @@
 namespace App\Entity\Traits;
 
 
-trait OrderableTrait
+trait OrderTrait
 {
     /**
      * @ORM\Column(type="string", length=255)

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\OrderableTrait;
+use App\Entity\Traits\OrderTrait;
 use App\Entity\Traits\UserTrait;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Task
 {
     use UserTrait;
-    use OrderableTrait;
+    use OrderTrait;
 
     /**
      * @ORM\Id()
