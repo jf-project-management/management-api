@@ -5,6 +5,7 @@ namespace App\Tests\Core;
 
 
 use App\Entity\Task;
+use App\Entity\User;
 use App\Tests\CommonInitializer;
 
 class TaskTest extends CommonInitializer
@@ -12,8 +13,10 @@ class TaskTest extends CommonInitializer
     public function testSimpleInitializer()
     {
         $task = new Task();
-
+        $user = new User();
+        $task->setCreatedBy($user);
         $this->assertEmpty($task->getId());
+        $this->assertEquals($user, $task->getCreatedBy());
     }
 
     public function testSearchTask()

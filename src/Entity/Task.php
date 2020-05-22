@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\OrderableTrait;
+use App\Entity\Traits\UserTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  */
-class Task extends OrderableEntity
+class Task
 {
+    use UserTrait;
+    use OrderableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -5,6 +5,7 @@ namespace App\Tests\Core;
 
 
 use App\Entity\Feature;
+use App\Entity\Project;
 use App\Entity\User;
 use App\Tests\CommonInitializer;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -47,6 +48,17 @@ class UserTest extends CommonInitializer
 
         $this->assertEquals($oldPassword, $user->getPassword());
         $this->assertEmpty($user->getPlainPassword());
+    }
+
+    public function testProjects()
+    {
+        $project = new Project();
+        $user = new User();
+        $user->addProject($project);
+        $this->assertEquals(1, count($user->getProjects()));
+
+        $user->removeProject($project);
+        $this->assertEquals(0, count($user->getProjects()));
     }
 
     public function testUpgradePasswordOnly()

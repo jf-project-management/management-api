@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\MappedSuperclass;
+namespace App\Entity\Traits;
 
-/**
- * @MappedSuperclass
- */
-class OrderableEntity
+
+trait OrderableTrait
 {
     /**
      * @ORM\Column(type="string", length=255)

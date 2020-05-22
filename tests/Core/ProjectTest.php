@@ -4,6 +4,7 @@ namespace App\Tests\Core;
 
 use App\Entity\Epic;
 use App\Entity\Project;
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class ProjectTest extends TestCase
@@ -25,6 +26,7 @@ class ProjectTest extends TestCase
         $this->assertEmpty($this->project->getId());
         $this->assertEquals('Project 1', $this->project->getName());
         $this->assertEquals('Any test', $this->project->getDescription());
+        $this->assertNotEmpty($this->project->getCreatedBy());
     }
 
     public function testProjectEpics()
@@ -58,9 +60,11 @@ class ProjectTest extends TestCase
 
     private function setUpProject()
     {
+        $user = new User();
         $this->project = new Project();
         $this->project->setName('Project 1');
         $this->project->setDescription('Any test');
+        $this->project->setCreatedBy($user);
     }
 
     /**
