@@ -4,6 +4,7 @@ namespace App\Tests\Core;
 
 use App\Entity\Epic;
 use App\Entity\Project;
+use App\Entity\Team;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -40,6 +41,17 @@ class ProjectTest extends TestCase
         $this->assertInstanceOf(Epic::class, $epic1);
         $this->assertNotEmpty($this->project->getEpics());
         $this->assertEquals(2, count($this->project->getEpics()));
+    }
+
+    public function testProjectTeam()
+    {
+        $team = new Team();
+        $team->setName('Team 1');
+        $team->setDescription('');
+
+        $this->project->setTeam($team);
+
+        $this->assertEquals($team, $this->project->getTeam());
     }
 
     public function testRemoveEpicsByIndex()

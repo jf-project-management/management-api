@@ -19,7 +19,7 @@ trait OrderTrait
     /**
      * @ORM\Column(type="integer")
      */
-    private $orderPosition;
+    private $orderPosition = 0;
 
     public function getName(): ?string
     {

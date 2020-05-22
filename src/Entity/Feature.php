@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Traits\OrderTrait;
+use App\Entity\Traits\UserTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +15,7 @@ use Doctrine\Persistence\ObjectManager;
  */
 class Feature
 {
+    use UserTrait;
     use OrderTrait;
 
     /**

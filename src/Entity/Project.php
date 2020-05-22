@@ -36,6 +36,11 @@ class Project
      */
     private $epics;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="projects")
+     */
+    private $team;
+
     public function __construct()
     {
         $this->epics = new ArrayCollection();
@@ -97,6 +102,18 @@ class Project
                 $epic->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): self
+    {
+        $this->team = $team;
 
         return $this;
     }

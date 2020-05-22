@@ -36,6 +36,12 @@ class FeatureTest extends CommonInitializer
         $this->assertEmpty($second->getHistories());
     }
 
+    public function testOrderDefault()
+    {
+        $feature = new Feature();
+        $this->assertEquals(0, $feature->getOrderPosition());
+    }
+
     private function createFeatures()
     {
         $epic = new Epic();
