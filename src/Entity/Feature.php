@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\OrderTrait;
 use App\Entity\Traits\UserTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Persistence\ObjectManager;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="App\Repository\FeatureRepository")
  * @ORM\HasLifecycleCallbacks()
  */
